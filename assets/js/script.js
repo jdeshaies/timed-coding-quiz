@@ -5,6 +5,29 @@ var pEl = document.getElementById("quiz-info")
 var startButton = document.getElementById("start-button")
 var secondsLeft = 10;
 
+var questionsArray = [
+    {
+        question1Asked:"Commonly used data types DO NOT include:",
+        question1Options:["strings","booleans","alerts","numbers"],
+        question1Answer:"alerts"
+    },
+    {
+        question2Asked:"The condition in an if / else statement is enclosed with __________.",
+        question2Options:["quotes","curly brackets","paranthesis","square brackets"],
+        question2Answer:"paranthesis"
+    },
+    {
+        question3Asked:"Arrays in JavaScript can be used to store _________.",
+        question3Options:["numbers and strings","other arrays","booleans","all of the above"],
+        question3Answer:"all of the above"
+    }
+    {
+        question4Asked:"String values must be enclosed within __________ when being assigned to variables.",
+        question4Options:["commas","curly brackets","quotes","paranthesis"],
+        question4Answer:"quotes"
+    }
+]
+
 
 startButton.addEventListener("click", function startTime() {
     // Sets interval in variable
