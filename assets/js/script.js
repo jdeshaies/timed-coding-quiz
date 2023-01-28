@@ -1,9 +1,9 @@
 var timeEl = document.querySelector(".time");
-// var mainEl = document.getElementsByTagName(main);
+var mainEl = document.querySelector(".main");
 var h1El = document.getElementById("page-heading");
 var pEl = document.getElementById("quiz-info")
 var startButton = document.getElementById("start-button")
-var secondsLeft = 60;
+var secondsLeft = 5;
 
 var questionsArray = [
     {
@@ -47,13 +47,26 @@ startButton.addEventListener("click", function startTime() {
   });
   
   function displayQuestions() {
-    for (var i=0; i<questionsArray.length; i++) {
-        console.log("Question Asked:" + questionsArray[i].questionAsked);
+    pEl.setAttribute("hidden", true);
+    startButton.setAttribute("hidden", true);
+    var questionNumber = 0;
+    var currentQuestion = questionsArray[questionNumber];
+    var questionListEl = document.createElement("ol");
+
+    while (questionNumber < 1) {
+        h1El.textContent = currentQuestion.questionAsked;
+        for (var i=0; i < currentQuestion.questionOptions.length; i++){
+            var questionOptionEl = document.createElement("li");
+            questionOptionEl.append(currentQuestion.questionOptions[i]);
+            questionListEl.append(questionOptionEl);
+        }
+        mainEl.append(questionListEl);
+        questionNumber++;
     }
   }
 
   function sendMessage() {
-    h1El.textContent = "All done!"  
+    h1El.textContent = "All done!";  
     pEl.textContent = "Your final score is " + secondsLeft.toString() + ".";
 }
 
