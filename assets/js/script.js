@@ -49,11 +49,22 @@ startButton.addEventListener("click", function startQuiz() {
 });
 
 function displayQuestions() {
-    startButton.setAttribute("hidden", true);
-    var questionNumber = 0;
-    var currentQuestion = questionsArray[questionNumber];
-    h1El.textContent = currentQuestion.questionAsked;
     pEl.textContent = "";
+    startButton.setAttribute("hidden", true);
+    for (questionNumber = 0; questionNumber < questionsArray.length; questionNumber++){
+        var currentQuestion = questionsArray[questionNumber];
+        h1El.textContent = currentQuestion.questionAsked;
+        var buttonListEl = document.createElement("div");
+        buttonListEl.setAttribute("class", "button-list");
+        for (i=0; i<currentQuestion.questionOptions.length; i++){
+            var optionButtonEl = document.createElement("button");
+            buttonListEl.appendChild(optionButtonEl);
+            optionButtonEl.innerHTML = currentQuestion.questionOptions[i];
+        }
+        mainEl.appendChild(buttonListEl);
+        
+        questionNumber = 5;
+    }
 };
 
 function sendMessage() {
