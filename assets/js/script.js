@@ -3,7 +3,7 @@ var mainEl = document.querySelector(".main");
 var h1El = document.getElementById("page-heading");
 var pEl = document.getElementById("quiz-info");
 var startButton = document.getElementById("start-button");
-var secondsLeft = 5;
+var secondsLeft = 20;
 var quizOver = false;
 
 var questionsArray = [
@@ -49,8 +49,11 @@ startButton.addEventListener("click", function startQuiz() {
 });
 
 function displayQuestions() {
+    // Makes instructions blank and hides start button so they don't appear when quiz starts
     pEl.textContent = "";
     startButton.setAttribute("hidden", true);
+
+    //Loops through the array containing the question objects to populate the header with the question asked and possible choices as buttons in a list
     for (questionNumber = 0; questionNumber < questionsArray.length; questionNumber++){
         var currentQuestion = questionsArray[questionNumber];
         h1El.textContent = currentQuestion.questionAsked;
@@ -64,7 +67,12 @@ function displayQuestions() {
             optionListItem.appendChild(optionButtonEl);
             buttonListEl.appendChild(optionListItem);
             optionButtonEl.addEventListener("click", function() {
-                alert("button clicked");
+                // alert(this.textContent);
+                if (this.textContent === currentQuestion.questionAnswer) {
+                    alert("Correct");
+                } else {
+                    alert("Incorrect");
+                }
             });
         }
 
