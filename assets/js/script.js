@@ -54,18 +54,19 @@ function displayQuestions() {
     for (questionNumber = 0; questionNumber < questionsArray.length; questionNumber++){
         var currentQuestion = questionsArray[questionNumber];
         h1El.textContent = currentQuestion.questionAsked;
-        var buttonListEl = document.createElement("div");
+        var buttonListEl = document.createElement("ul");
+        mainEl.appendChild(buttonListEl);
         buttonListEl.setAttribute("class", "button-list");
         for (i=0; i < currentQuestion.questionOptions.length; i++){
             var optionButtonEl = document.createElement("button");
-            buttonListEl.appendChild(optionButtonEl);
             optionButtonEl.innerHTML = currentQuestion.questionOptions[i];
-            optionButtonEl.setAttribute("class", "button-option");
+            var optionListItem = document.createElement("li");
+            optionListItem.appendChild(optionButtonEl);
+            buttonListEl.appendChild(optionListItem);
             optionButtonEl.addEventListener("click", function() {
                 alert("button clicked");
             });
         }
-        mainEl.appendChild(buttonListEl);
 
         questionNumber = 5;
     }
