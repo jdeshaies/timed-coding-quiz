@@ -4,7 +4,14 @@ var h1El = document.getElementById("page-heading");
 var pEl = document.getElementById("quiz-info");
 var startButton = document.getElementById("start-button");
 var secondsLeft = 20;
+var optionsListEl = document.getElementById("button-list");
+var optionListItemEl = optionsListEl.getElementsByTagName("li");
+var optionButtonEl = optionsListEl.getElementsByTagName("button");
+// for (var i = 0; i < optionButtonEl.length; i++){
+//     console.log(optionButtonEl[i].textContent);
+// }
 var quizOver = false;
+questionNumber = 0;
 
 var questionsArray = [
     {
@@ -29,13 +36,15 @@ var questionsArray = [
     }
 ];
 
+var currentQuestion = questionsArray[questionNumber];
+
 startButton.addEventListener("click", function startQuiz() {
     // Sets interval in variable
     var timerInterval = setInterval(function() {
       secondsLeft--;
       timeEl.textContent = "Timer: " + secondsLeft;
   
-      if(secondsLeft === 0) {
+      if(secondsLeft === 0 || secondsLeft < 0) {
         // Stops execution of action at set interval
         clearInterval(timerInterval);
         quizOver = true;
@@ -55,32 +64,25 @@ function displayQuestions() {
 
     //Loops through the array containing the question objects to populate the header with the question asked and possible choices as buttons in a list
     for (questionNumber = 0; questionNumber < questionsArray.length; questionNumber++){
-        var currentQuestion = questionsArray[questionNumber];
         h1El.textContent = currentQuestion.questionAsked;
-        var buttonListEl = document.createElement("ul");
-        mainEl.appendChild(buttonListEl);
-        buttonListEl.setAttribute("class", "button-list");
         for (i=0; i < currentQuestion.questionOptions.length; i++){
-            var optionButtonEl = document.createElement("button");
-            optionButtonEl.innerHTML = currentQuestion.questionOptions[i];
-            var optionListItem = document.createElement("li");
-            optionListItem.appendChild(optionButtonEl);
-            buttonListEl.appendChild(optionListItem);
-            optionButtonEl.addEventListener("click", function() {
+            optionButtonEl[i].textContent = currentQuestion.questionOptions[i];
+            optionButtonEl[i].addEventListener("click", function() {
                 // alert(this.textContent);
                 if (this.textContent === currentQuestion.questionAnswer) {
                     alert("Correct");
                 } else {
                     alert("Incorrect");
+                    secondsLeft = secondsLeft-10;
                 }
+                questionNumber++;
             });
         }
-
-        questionNumber = 5;
     }
 };
 
 function sendMessage() {
+    optionsListEl.setAttribute("hidden", true);
     h1El.textContent = "All done!";
     pEl.textContent = "Your final score is " + secondsLeft.toString() + ".";
 }
