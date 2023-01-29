@@ -56,13 +56,17 @@ function displayQuestions() {
         h1El.textContent = currentQuestion.questionAsked;
         var buttonListEl = document.createElement("div");
         buttonListEl.setAttribute("class", "button-list");
-        for (i=0; i<currentQuestion.questionOptions.length; i++){
+        for (i=0; i < currentQuestion.questionOptions.length; i++){
             var optionButtonEl = document.createElement("button");
             buttonListEl.appendChild(optionButtonEl);
             optionButtonEl.innerHTML = currentQuestion.questionOptions[i];
+            optionButtonEl.setAttribute("class", "button-option");
+            optionButtonEl.addEventListener("click", function() {
+                alert("button clicked");
+            });
         }
         mainEl.appendChild(buttonListEl);
-        
+
         questionNumber = 5;
     }
 };
