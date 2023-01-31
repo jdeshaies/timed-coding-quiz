@@ -3,15 +3,18 @@ var mainEl = document.querySelector(".main");
 var h1El = document.getElementById("page-heading");
 var pEl = document.getElementById("quiz-info");
 var startButton = document.getElementById("start-button");
-var secondsLeft = 20;
+var secondsLeft = 100;
 var optionsListEl = document.getElementById("button-list");
 var optionListItemEl = optionsListEl.getElementsByTagName("li");
 var optionButtonEl = optionsListEl.getElementsByTagName("button");
+var nextQuestion = true;
+
 // for (var i = 0; i < optionButtonEl.length; i++){
 //     console.log(optionButtonEl[i].textContent);
 // }
 var quizOver = false;
 questionNumber = 0;
+var answer = "";
 
 var questionsArray = [
     {
@@ -54,32 +57,44 @@ startButton.addEventListener("click", function startQuiz() {
   
     }, 1000);
 
-    displayQuestions();
-});
-
-function displayQuestions() {
     // Makes instructions blank and hides start button so they don't appear when quiz starts
     pEl.textContent = "";
     startButton.setAttribute("hidden", true);
+    
+    displayQuestions(); //Try seperate functions like check answer and add questionNumber++ after this
+});
+
+function displayQuestions() {
 
     //Loops through the array containing the question objects to populate the header with the question asked and possible choices as buttons in a list
-    for (questionNumber = 0; questionNumber < questionsArray.length; questionNumber++){
-        h1El.textContent = currentQuestion.questionAsked;
-        for (i=0; i < currentQuestion.questionOptions.length; i++){
-            optionButtonEl[i].textContent = currentQuestion.questionOptions[i];
-            optionButtonEl[i].addEventListener("click", function() {
-                // alert(this.textContent);
-                if (this.textContent === currentQuestion.questionAnswer) {
-                    alert("Correct");
-                } else {
-                    alert("Incorrect");
-                    secondsLeft = secondsLeft-10;
-                }
-                questionNumber++;
-            });
-        }
+    currentQuestion = questionsArray[questionNumber];
+    h1El.textContent = currentQuestion.questionAsked;
+    console.log("Question Number: " + questionNumber);
+    console.log("Current question asked: " + currentQuestion.questionAsked);
+    for (i=0; i < currentQuestion.questionOptions.length; i++){
+        optionButtonEl[i].textContent = currentQuestion.questionOptions[i];
+        console.log("Button: " + optionButtonEl[i].textContent);
+        optionButtonEl[i].addEventListener("click", function() {
+            var answer = this.textContent;
+            console.log(answer);
+            checkAnswer(answer);
+        });
     }
 };
+
+function checkAnswer(answer) {
+    console.log("answer picked: " + answer);
+    console.log("Correct answer: " + currentQuestion.questionAnswer);
+    if (answer === currentQuestion.questionAnswer) {
+        alert("Correct");
+    } else {
+        alert("Incorrect");
+        secondsLeft = secondsLeft-10;
+    }
+    questionNumber++;
+    console.log(questionNumber);
+    displayQuestions();
+}
 
 function sendMessage() {
     optionsListEl.setAttribute("hidden", true);
