@@ -5,6 +5,7 @@ var pEl = document.getElementById("quiz-info");
 var startButton = document.getElementById("start-button");
 var secondsLeft = 60;
 var optionsListEl = document.getElementById("button-list");
+optionsListEl.style.display = "none";
 var optionListItemEl = optionsListEl.getElementsByTagName("li");
 var optionButtonEl = optionsListEl.getElementsByTagName("button");
 var nextQuestion = true;
@@ -53,7 +54,7 @@ startButton.addEventListener("click", function startQuiz() {
         clearInterval(timerInterval);
         quizOver = true;
         // Calls function to create and append image
-        sendMessage();
+        endGame();
       }
   
     }, 1000);
@@ -69,6 +70,7 @@ function displayQuestions() {
     //Loops through the array containing the question objects to populate the header with the question asked and possible choices as buttons in a list
     currentQuestion = questionsArray[questionNumber];
     h1El.textContent = currentQuestion.questionAsked;
+    optionsListEl.style.display = "block";
     console.log("Question Number: " + questionNumber);
     console.log("Current question asked: " + currentQuestion.questionAsked);
     for (i=0; i < currentQuestion.questionOptions.length; i++){
@@ -97,16 +99,15 @@ function checkAnswer(answer) {
     displayQuestions();
 }
 
-function sendMessage() {
+function endGame() {
     finalScore = secondsLeft.toString();
-    optionsListEl.setAttribute("hidden", true);
+    optionsListEl.style.display = "none";
     h1El.textContent = "All done!";
     pEl.textContent = "Your final score is " + finalScore + ".";
-
     
 }
 
-// function saveHighScore(score) {
+function saveHighScore(score) {
 
-// }
+}
  
