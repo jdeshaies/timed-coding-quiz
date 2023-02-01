@@ -8,6 +8,8 @@ var optionsListEl = document.getElementById("button-list");
 optionsListEl.style.display = "none";
 var optionListItemEl = optionsListEl.getElementsByTagName("li");
 var optionButtonEl = optionsListEl.getElementsByTagName("button");
+var submitScoreEl = document.querySelector(".submit-score");
+submitScoreEl.style.display = "none";
 var nextQuestion = true;
 var finalScore = 0;
 
@@ -104,6 +106,7 @@ function endGame() {
     optionsListEl.style.display = "none";
     h1El.textContent = "All done!";
     pEl.textContent = "Your final score is " + finalScore + ".";
+    submitScoreEl.style.display = "block";
     
 }
 
