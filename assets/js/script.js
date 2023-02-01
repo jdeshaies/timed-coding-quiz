@@ -3,11 +3,12 @@ var mainEl = document.querySelector(".main");
 var h1El = document.getElementById("page-heading");
 var pEl = document.getElementById("quiz-info");
 var startButton = document.getElementById("start-button");
-var secondsLeft = 100;
+var secondsLeft = 60;
 var optionsListEl = document.getElementById("button-list");
 var optionListItemEl = optionsListEl.getElementsByTagName("li");
 var optionButtonEl = optionsListEl.getElementsByTagName("button");
 var nextQuestion = true;
+var finalScore = 0;
 
 // for (var i = 0; i < optionButtonEl.length; i++){
 //     console.log(optionButtonEl[i].textContent);
@@ -65,7 +66,6 @@ startButton.addEventListener("click", function startQuiz() {
 });
 
 function displayQuestions() {
-
     //Loops through the array containing the question objects to populate the header with the question asked and possible choices as buttons in a list
     currentQuestion = questionsArray[questionNumber];
     h1El.textContent = currentQuestion.questionAsked;
@@ -74,7 +74,8 @@ function displayQuestions() {
     for (i=0; i < currentQuestion.questionOptions.length; i++){
         optionButtonEl[i].textContent = currentQuestion.questionOptions[i];
         console.log("Button: " + optionButtonEl[i].textContent);
-        optionButtonEl[i].addEventListener("click", function() {
+        optionButtonEl[i].addEventListener("click", function(event) {
+            event.preventDefault;
             var answer = this.textContent;
             console.log(answer);
             checkAnswer(answer);
@@ -89,7 +90,7 @@ function checkAnswer(answer) {
         alert("Correct");
     } else {
         alert("Incorrect");
-        secondsLeft = secondsLeft-10;
+        secondsLeft -= 15;
     }
     questionNumber++;
     console.log(questionNumber);
@@ -97,9 +98,15 @@ function checkAnswer(answer) {
 }
 
 function sendMessage() {
+    finalScore = secondsLeft.toString();
     optionsListEl.setAttribute("hidden", true);
     h1El.textContent = "All done!";
-    pEl.textContent = "Your final score is " + secondsLeft.toString() + ".";
+    pEl.textContent = "Your final score is " + finalScore + ".";
+
+    
 }
 
+// function saveHighScore(score) {
+
+// }
  
